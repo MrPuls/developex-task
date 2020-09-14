@@ -22,6 +22,7 @@ class UserRegistration:
             login_page.create_new_user_button_click()
             register_page.register_new_user()
             register_page.logout_user()
+            self.open_login_page()
             login_page.login_user()
 
 

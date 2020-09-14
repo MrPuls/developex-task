@@ -32,3 +32,4 @@ class LoginPageLocators(object):
 class MyAccountPageLocators(object):
     LOGOUT = (By.XPATH, '//*[@id="column-right"]/div/a[13]')
     LOGOUT_CONTINUE_BTN = (By.XPATH, '//*[@id="content"]/div/div/a')
+    CONTINUE = (By.XPATH, '//*[@id="content"]/div/div/a')

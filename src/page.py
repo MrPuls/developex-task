@@ -58,6 +58,7 @@ class RegistrationPage(BasePage):
 
     def logout_user(self):
         self.driver.find_element(*MyAccountPageLocators.LOGOUT).click()
+        self.driver.find_element(*MyAccountPageLocators.CONTINUE).click()
 
     def register_new_user(self):
         self.fill_registration_info()
