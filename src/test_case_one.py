@@ -21,6 +21,8 @@ class UserRegistration:
         if self.driver.current_url != 'https://localhost/index.php?route=account/account':
             login_page.create_new_user_button_click()
             register_page.register_new_user()
+            register_page.logout_user()
+            login_page.login_user()
 
 
 test = UserRegistration()

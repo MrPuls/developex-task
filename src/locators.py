@@ -28,3 +28,7 @@ class LoginPageLocators(object):
     LOGIN_BTN = (By.XPATH, '//*[@id="content"]/div/div[2]/div/form/input')
     NEW_CUSTOMER_BTN = (By.XPATH, '//*[@id="content"]/div/div[1]/div/a')
 
+
+class MyAccountPageLocators(object):
+    LOGOUT = (By.XPATH, '//*[@id="column-right"]/div/a[13]')
+    LOGOUT_CONTINUE_BTN = (By.XPATH, '//*[@id="content"]/div/div/a')

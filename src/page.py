@@ -1,5 +1,5 @@
 from src.locators import MainPageLocators, RegistrationPageLocators, RegistrationSuccessLocators, \
-    LoginPageLocators
+    LoginPageLocators, MyAccountPageLocators
 import src.tests_dto as dto
 
 
@@ -56,7 +56,11 @@ class RegistrationPage(BasePage):
     def user_created_continue_button_click(self):
         self.driver.find_element(*RegistrationSuccessLocators.CONTINUE).click()
 
+    def logout_user(self):
+        self.driver.find_element(*MyAccountPageLocators.LOGOUT).click()
+
     def register_new_user(self):
         self.fill_registration_info()
         self.click_register_user_continue_button()
         self.user_created_continue_button_click()
+
