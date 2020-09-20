@@ -95,6 +95,22 @@ class PurchaseConfirmationLocators:
     ORDER_HISTORY_BODY = (By.XPATH, '//*[@id="content"]/div[1]/table/tbody/tr')
     ORDER_STATUS_TAB = (By.XPATH, '//*[@id="content"]/div[1]/table/tbody/tr/td[4]')
 
-# todo caps all locators, finish TC2 мб попробовать итерировать по элементам шапки в истории заказов,
-#  чтобы найти положение статуса, ну или забить и просто глянуть прямо в статус.
-#  Придумать кейс 3 -_-
+
+class PurchaseReturnLocators:
+    order_history_table_size = len((By.XPATH, '//*[@id="content"]/div[1]/table/tbody'))
+    order_detail_table_size = len((By.XPATH, '//*[@id="content"]/div[1]/table/tbody'))
+
+    '//*[@id="content"]/form/fieldset[2]/div[4]/div/div[1]/label/input'
+    '//*[@id="content"]/form/fieldset[2]/div[4]/div/div[4]/label/input'
+
+    ORDER_DETAIL_BTN = \
+        (By.XPATH, f'//*[@id="content"]/div[1]/table/tbody/tr[{random.randint(1, order_history_table_size)}]/td[7]/a')
+    ORDER_RETURN_BTN = \
+        (By.XPATH, f'//*[@id="content"]/div[1]/table/tbody/tr[{random.randint(1, order_detail_table_size)}]/td[6]/a[2]')
+    RETURN_CAUSE_CHECKBOX = \
+        (By.CSS_SELECTOR,
+         '#content > form > fieldset:nth-child(2) > div:nth-child(5) > '
+         'div > div:nth-child(1) > label > input[type=radio]')
+    SUBMIT_BTN = (By.XPATH, '//*[@id="content"]/form/div/div[2]/input')
+    RETURNS_BTN = (By.XPATH, '//*[@id="column-right"]/div/a[10]')
+    RETURNS_INFO = (By.XPATH, '//*[@id="content"]/div[1]/table/tbody/tr[3]/td[2]')

@@ -2,7 +2,7 @@ import time
 import selenium.common
 from src.locators import MainPageLocators, RegistrationPageLocators, RegistrationSuccessLocators, \
     LoginPageLocators, MyAccountPageLocators, FeaturedListLocators, AppleCinemaLocators, CanonLocators, \
-    OrderCheckoutLocators, PurchaseConfirmationLocators
+    OrderCheckoutLocators, PurchaseConfirmationLocators, PurchaseReturnLocators
 import src.tests_dto as dto
 
 
@@ -243,3 +243,43 @@ class CheckPurchaseStatus(BasePage):
         time.sleep(1)
         assert self.get_purchase_status() == 'Pending', f'Invalid purchase status. Expected: Pending, ' \
                                                         f'Got: {self.get_purchase_status()}'
+
+
+class CreateReturnRequest(BasePage):
+    def _open_order_history(self):
+        CheckPurchaseStatus(self.driver).open_account_menu()
+        CheckPurchaseStatus(self.driver).open_order_history_tab()
+
+    def _open_order_details(self):
+        self.driver.find_element(*PurchaseReturnLocators.ORDER_DETAIL_BTN).click()
+
+    def _choose_order_return_option(self):
+        self.driver.find_element(*PurchaseReturnLocators.ORDER_RETURN_BTN).click()
+
+    def _set_return_cause(self):
+        self.driver.find_element(*PurchaseReturnLocators.RETURN_CAUSE_CHECKBOX).click()
+
+    def _submit_return_request(self):
+        self.driver.find_element(*PurchaseReturnLocators.SUBMIT_BTN).click()
+
+    def _open_return_table(self):
+        self.driver.find_element(*PurchaseReturnLocators.RETURNS_BTN).click()
+
+    def _get_return_status(self):
+        return self.driver.find_element(*PurchaseReturnLocators.RETURNS_INFO).text
+
+    def make_return_and_verify_status(self):
+        self._open_order_history()
+        time.sleep(1)
+        self._open_order_details()
+        time.sleep(1)
+        self._choose_order_return_option()
+        time.sleep(1)
+        self._set_return_cause()
+        time.sleep(1)
+        self._submit_return_request()
+        time.sleep(1)
+        self._open_return_table()
+
+        assert self._get_return_status() == 'Awaiting Products', \
+            f'Invalid Return status. Expected: Awaiting Products, Got: {self._get_return_status()}'
