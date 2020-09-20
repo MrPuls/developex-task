@@ -68,6 +68,8 @@ class OrderCheckoutLocators:
     EMAIL = (By.XPATH, '//*[@id="input-email"]')
     PASSWORD = (By.XPATH, '//*[@id="input-password"]')
     LOGIN_BTN = (By.XPATH, '//*[@id="button-login"]')
+    NEW_ADDRESS_CHECKBOX = (By.CSS_SELECTOR,
+                            '#collapse-payment-address > div > form > div:nth-child(3) > label > input[type=radio]')
     FIRST_NAME = (By.XPATH, '//*[@id="input-payment-firstname"]')
     LAST_NAME = (By.XPATH, '//*[@id="input-payment-lastname"]')
     ADDRESS = (By.XPATH, '//*[@id="input-payment-address-1"]')
@@ -80,8 +82,10 @@ class OrderCheckoutLocators:
     DELIVERY_METHOD_CONTINUE_BTN = (By.XPATH, '//*[@id="button-shipping-method"]')
     DELIVERY_PAYMENT_CONTINUE_BTN = (By.XPATH, '//*[@id="button-payment-method"]')
     PAYMENT_METHOD_TERMS_CHECKBOX = (By.CSS_SELECTOR,
-                            '#collapse-payment-method > div > div.buttons > div > input[type=checkbox]:nth-child(2)')
+                                     '#collapse-payment-method > div > div.buttons > div > input[type=checkbox]:'
+                                     'nth-child(2)')
     CONFIRM_ORDER_CONTINUE_BTN = (By.XPATH, '//*[@id="button-confirm"]')
+    ORDER_PLACED_CONTINUE_BTN = (By.XPATH, '//*[@id="content"]/div/div/a')
 
 
 class PurchaseConfirmationLocators:

@@ -13,6 +13,14 @@ class AddItemsToCart:
     def add_items_to_cart(self):
         page.MainPage(self.driver).add_item_to_cart()
 
+    def checkout_items(self):
+        page.FillOrderCheckoutInfo(self.driver).checkout_purchase()
+
+    def check_order_history(self):
+        page.CheckPurchaseStatus(self.driver).check_order_history_status()
+
 
 test2 = AddItemsToCart()
 test2.add_items_to_cart()
+test2.checkout_items()
+test2.check_order_history()

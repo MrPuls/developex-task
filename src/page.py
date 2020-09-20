@@ -1,4 +1,5 @@
 import time
+import selenium.common
 from src.locators import MainPageLocators, RegistrationPageLocators, RegistrationSuccessLocators, \
     LoginPageLocators, MyAccountPageLocators, FeaturedListLocators, AppleCinemaLocators, CanonLocators, \
     OrderCheckoutLocators, PurchaseConfirmationLocators
@@ -86,7 +87,7 @@ class FillAppleCinemaInfo(BasePage):
 
     def _check_selector(self):
         self.driver.find_element(*AppleCinemaLocators.SELECTOR).click()
-        time.sleep(2)
+        time.sleep(1)
         self.driver.find_element(*AppleCinemaLocators.SELECTOR_OPTION_BLUE).click()
 
     def _fill_textarea(self):
@@ -95,7 +96,6 @@ class FillAppleCinemaInfo(BasePage):
     def _upload_file(self):
         self.driver.execute_script('document.getElementById("input-option222").'
                                    'value="9ebb97b07a7020bb0d8fe37a61e213674e388000"')
-        time.sleep(15)
 
     def _add_to_cart(self):
         self.driver.find_element(*AppleCinemaLocators.ADD_TO_CART_BTN).click()
@@ -115,8 +115,8 @@ class FillAppleCinemaInfo(BasePage):
 
 class FillCanonInfo(BasePage):
     def _check_selector(self):
-        self.driver.find_element(*CanonLocators.SELECTOR).click()
         time.sleep(2)
+        self.driver.find_element(*CanonLocators.SELECTOR).click()
         self.driver.find_element(*CanonLocators.SELECTOR_OPTION_BLUE).click()
 
     def _add_to_cart(self):
@@ -134,48 +134,112 @@ class FillOrderCheckoutInfo(BasePage):
         self.driver.find_element(*OrderCheckoutLocators.CART_BTN).click()
 
     def _click_checkout_button(self):
-        self.driver.find_element(*OrderCheckoutLocators.CHECKOUT_BTN)
+        self.driver.find_element(*OrderCheckoutLocators.CHECKOUT_BTN).click()
 
     def _set_email(self):
-        self.driver.find_element(*OrderCheckoutLocators.EMAIL)
+        self.driver.find_element(*OrderCheckoutLocators.EMAIL).send_keys(dto.register_page_dto['EMAIL'])
 
     def _set_password(self):
-        self.driver.find_element(*OrderCheckoutLocators.PASSWORD)
+        self.driver.find_element(*OrderCheckoutLocators.PASSWORD).send_keys(dto.register_page_dto['PASSWORD'])
 
     def _login(self):
-        self.driver.find_element(*OrderCheckoutLocators.LOGIN_BTN)
+        self.driver.find_element(*OrderCheckoutLocators.LOGIN_BTN).click()
+
+    def set_new_delivery_data(self):
+        try:
+            self.driver.find_element(*OrderCheckoutLocators.NEW_ADDRESS_CHECKBOX).click()
+        except selenium.common.exceptions.NoSuchElementException:
+            pass
 
     def _set_first_name(self):
-        self.driver.find_element(*OrderCheckoutLocators.FIRST_NAME)
+        self.driver.find_element(*OrderCheckoutLocators.FIRST_NAME).send_keys(dto.register_page_dto['FIRST_NAME'])
 
     def _set_last_name(self):
-        self.driver.find_element(*OrderCheckoutLocators.LAST_NAME)
+        self.driver.find_element(*OrderCheckoutLocators.LAST_NAME).send_keys(dto.register_page_dto['LAST_NAME'])
 
     def _set_address(self):
-        self.driver.find_element(*OrderCheckoutLocators.ADDRESS)
+        self.driver.find_element(*OrderCheckoutLocators.ADDRESS).send_keys(dto.register_page_dto['ADDRESS'])
 
     def _set_city(self):
-        self.driver.find_element(*OrderCheckoutLocators.CITY)
+        self.driver.find_element(*OrderCheckoutLocators.CITY).send_keys(dto.register_page_dto['CITY'])
 
     def _set_post_code(self):
-        self.driver.find_element(*OrderCheckoutLocators.POST_CODE)
+        self.driver.find_element(*OrderCheckoutLocators.POST_CODE).send_keys(dto.register_page_dto['POST_CODE'])
 
     def _set_region(self):
-        self.driver.find_element(*OrderCheckoutLocators.REGION_SELECT)
-        self.driver.find_element(*OrderCheckoutLocators.REGION_SELECT_OPTION)
+        self.driver.find_element(*OrderCheckoutLocators.REGION_SELECT).click()
+        self.driver.find_element(*OrderCheckoutLocators.REGION_SELECT_OPTION).click()
 
     def _set_billing(self):
-        self.driver.find_element(*OrderCheckoutLocators.BILLING_CONTINUE_BTN)
+        self.driver.find_element(*OrderCheckoutLocators.BILLING_CONTINUE_BTN).click()
 
     def _set_delivery(self):
-        self.driver.find_element(*OrderCheckoutLocators.DELIVERY_CONTINUE_BTN)
+        self.driver.find_element(*OrderCheckoutLocators.DELIVERY_CONTINUE_BTN).click()
 
     def _set_delivery_method(self):
-        self.driver.find_element(*OrderCheckoutLocators.DELIVERY_METHOD_CONTINUE_BTN)
+        self.driver.find_element(*OrderCheckoutLocators.DELIVERY_METHOD_CONTINUE_BTN).click()
 
     def _set_delivery_payment(self):
-        self.driver.find_element(*OrderCheckoutLocators.DELIVERY_PAYMENT_CONTINUE_BTN)
+        self.driver.find_element(*OrderCheckoutLocators.PAYMENT_METHOD_TERMS_CHECKBOX).click()
+        time.sleep(2)
+        self.driver.find_element(*OrderCheckoutLocators.DELIVERY_PAYMENT_CONTINUE_BTN).click()
 
     def _set_payment_method(self):
-        self.driver.find_element(*OrderCheckoutLocators.PAYMENT_METHOD_TERMS_CHECKBOX)
-        self.driver.find_element(*OrderCheckoutLocators.CONFIRM_ORDER_CONTINUE_BTN)
+        self.driver.find_element(*OrderCheckoutLocators.CONFIRM_ORDER_CONTINUE_BTN).click()
+
+    def _click_order_placed_btn(self):
+        self.driver.find_element(*OrderCheckoutLocators.ORDER_PLACED_CONTINUE_BTN).click()
+
+    def checkout_purchase(self):
+        time.sleep(2)
+        self._click_cart_button()
+        time.sleep(2)
+        self._click_checkout_button()
+        time.sleep(2)
+        self._set_email()
+        self._set_password()
+        self._login()
+        time.sleep(2)
+        self.set_new_delivery_data()
+        time.sleep(2)
+        self._set_first_name()
+        self._set_last_name()
+        self._set_address()
+        self._set_city()
+        self._set_post_code()
+        self._set_region()
+        time.sleep(2)
+        self._set_billing()
+        time.sleep(2)
+        self._set_delivery()
+        time.sleep(2)
+        self._set_delivery_method()
+        time.sleep(2)
+        self._set_delivery_payment()
+        time.sleep(2)
+        self._set_payment_method()
+        time.sleep(2)
+        self._click_order_placed_btn()
+        assert self.driver.current_url == 'http://localhost/index.php?route=common/home', \
+            f'Invalid url after purhase checkout. Expected [http://localhost/index.php?route=common/home] ' \
+            f'Got: {self.driver.current_url}'
+
+
+class CheckPurchaseStatus(BasePage):
+    def open_account_menu(self):
+        self.driver.find_element(*PurchaseConfirmationLocators.ACCOUNT_DROPDOWN_BTN).click()
+
+    def open_order_history_tab(self):
+        self.driver.find_element(*PurchaseConfirmationLocators.ORDER_HISTORY_BTN).click()
+
+    def get_purchase_status(self):
+        return self.driver.find_element(*PurchaseConfirmationLocators.ORDER_STATUS_TAB).text
+
+    def check_order_history_status(self):
+        time.sleep(1)
+        self.open_account_menu()
+        time.sleep(1)
+        self.open_order_history_tab()
+        time.sleep(1)
+        assert self.get_purchase_status() == 'Pending', f'Invalid purchase status. Expected: Pending, ' \
+                                                        f'Got: {self.get_purchase_status()}'
